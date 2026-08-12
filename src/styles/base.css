@@ -1,0 +1,180 @@
+:root {
+  --bg: #12100e;
+  --bg-elev: #1a1714;
+  --bg-elev-2: #221d19;
+  --line: #2f2822;
+  --line-strong: #3d342c;
+  --text: #f4ece3;
+  --text-dim: #9d9088;
+  --accent: #d97757;
+  --accent-text: #e08b6d;
+  --accent-soft: #33231b;
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --radius: 12px;
+  --radius-sm: 8px;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #faf7f4;
+    --bg-elev: #ffffff;
+    --bg-elev-2: #f3eee9;
+    --line: #e6ded5;
+    --line-strong: #d7cbbf;
+    --text: #241d17;
+    --text-dim: #766a61;
+    --accent: #c25f3c;
+    --accent-text: #a94c2c;
+    --accent-soft: #fbeae3;
+    --shadow: 0 8px 24px rgba(90, 60, 40, 0.1);
+    color-scheme: light;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+input,
+select {
+  font: inherit;
+  color: inherit;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+input:hover,
+select:hover {
+  border-color: var(--line-strong);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--accent);
+}
+
+select {
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--bg-elev-2);
+  white-space: nowrap;
+  font-weight: 500;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.06s ease;
+}
+
+.btn:hover {
+  border-color: var(--line-strong);
+  background: var(--bg-elev);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  filter: brightness(1.08);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+}
+
+.muted {
+  color: var(--text-dim);
+}
+
+/* Platform rozeti */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 17px;
+  padding: 0 6px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  border: 1px solid var(--line-strong);
+  color: var(--text-dim);
+  flex: none;
+}
+
+.badge.claude {
+  color: var(--accent-text);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  background: var(--accent-soft);
+}
+
+.badge.chatgpt {
+  color: #4a9d7f;
+  border-color: rgba(74, 157, 127, 0.4);
+  background: rgba(74, 157, 127, 0.1);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--line-strong);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

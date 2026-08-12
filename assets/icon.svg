@@ -1,0 +1,21 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Vestige ikonu: "geriye kalan iz".
+    Soldan sağa sönümlenen üç çubuk — arayüzdeki marka işaretinin aynısı.
+    16px'te de okunsun diye bilerek üç büyük şekilden ibaret.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0855f" />
+      <stop offset="100%" stop-color="#c25f3c" />
+    </linearGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="29" fill="url(#bg)" />
+
+  <g fill="#fdf6f0">
+    <rect x="32" y="33" width="15" height="62" rx="7.5" />
+    <rect x="56" y="41" width="15" height="46" rx="7.5" opacity="0.62" />
+    <rect x="80" y="49" width="15" height="30" rx="7.5" opacity="0.32" />
+  </g>
+</svg>

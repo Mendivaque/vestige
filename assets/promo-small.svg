@@ -1,0 +1,31 @@
+<svg width="440" height="280" viewBox="0 0 440 280" xmlns="http://www.w3.org/2000/svg">
+  <!-- Web Store "small promo tile" — 440x280. Metin küçük tile'da okunmalı. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c1815" />
+      <stop offset="100%" stop-color="#2b211a" />
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0855f" />
+      <stop offset="100%" stop-color="#c25f3c" />
+    </linearGradient>
+  </defs>
+
+  <rect width="440" height="280" fill="url(#bg)" />
+
+  <g transform="translate(40, 74)">
+    <rect width="72" height="72" rx="17" fill="url(#mark)" />
+    <g fill="#fdf6f0" transform="translate(0,0)">
+      <rect x="18" y="19" width="8.5" height="35" rx="4.25" />
+      <rect x="31.5" y="23.5" width="8.5" height="26" rx="4.25" opacity="0.62" />
+      <rect x="45" y="27.5" width="8.5" height="18" rx="4.25" opacity="0.32" />
+    </g>
+  </g>
+
+  <text x="136" y="126" fill="#f4ece3" font-family="Segoe UI, system-ui, sans-serif"
+        font-size="40" font-weight="700" letter-spacing="-0.5">Vestige</text>
+  <text x="137" y="156" fill="#a99b91" font-family="Segoe UI, system-ui, sans-serif"
+        font-size="17" font-weight="400">Your AI chats, kept and searchable</text>
+  <text x="137" y="182" fill="#e08b6d" font-family="Segoe UI, system-ui, sans-serif"
+        font-size="15" font-weight="600">Claude · ChatGPT · 100% local</text>
+</svg>
