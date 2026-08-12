@@ -39,21 +39,26 @@ Başlıkları görselin üstüne koyacaksan: koyu şerit + `#f4ece3` metin, ekra
 
 ## Gönderim adımları
 
+Forma girilecek iki URL hazır:
+
+- **Gizlilik politikası:** https://mendivaque.github.io/vestige/
+  (kaynağı `docs/index.html`; `privacy-policy.md` aynı metnin okunabilir hâli)
+- **Website / destek:** https://github.com/Mendivaque/vestige
+
 1. **Geliştirici hesabı** — [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole),
    tek seferlik 5 USD kayıt ücreti. Hesap doğrulaması bir gün sürebilir.
-2. **Gizlilik politikasını yayınla** — `privacy-policy.md` içeriğini bir URL'e
-   koy (GitHub Pages, gist, kendi sitendeki bir sayfa). Form URL istiyor.
-3. **Paketi üret:**
+2. **Paketi üret:**
    ```bash
    npm run zip
    ```
    `.output/vestige-<sürüm>-chrome.zip` dosyası yüklenecek olan.
-4. **Yeni öğe oluştur**, zip'i yükle.
-5. **Store listing** sekmesi → `listing-en.md`'deki metinler, `icon-128.png`,
+3. **Yeni öğe oluştur**, zip'i yükle.
+4. **Store listing** sekmesi → `listing-en.md`'deki metinler, `icon-128.png`,
    `promo-440x280.png`, ekran görüntüleri. Kategori: Productivity.
-6. **Privacy practices** sekmesi → `review-form.md`'deki metinler ve kutular.
-7. **Distribution** → Public, tüm bölgeler.
-8. Gönder. İnceleme genelde birkaç gün; ilk gönderimde daha uzun sürebiliyor.
+5. **Privacy practices** sekmesi → `review-form.md`'deki metinler ve kutular,
+   yukarıdaki gizlilik politikası URL'i.
+6. **Distribution** → Public, tüm bölgeler.
+7. Gönder. İnceleme genelde birkaç gün; ilk gönderimde daha uzun sürebiliyor.
 
 ## Gönderimden önce son kontrol
 

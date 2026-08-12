@@ -53,9 +53,8 @@ Free. No premium tier, no upsell, no sign-up.
 
 - **Language:** English. Add a second Turkish listing after publishing (the
   Developer Dashboard supports per-language listings).
-- **Website / support:** GitHub repository URL (create the repo first).
-- **Privacy policy URL:** required — see `store/privacy-policy.md` and host it
-  (GitHub Pages or a gist works).
+- **Website / support:** `https://github.com/Mendivaque/vestige`
+- **Privacy policy URL:** `https://mendivaque.github.io/vestige/` (yayında)
 
 ## ASO — keywords the copy deliberately covers
 

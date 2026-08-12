@@ -64,3 +64,14 @@ güncelle. İpucu hiç çıkmıyorsa büyük ihtimalle `composer` selector'ı ka
 ## Yapı
 
 Mimari, kurallar ve konumlanma kararları için [CLAUDE.md](CLAUDE.md).
+Mağaza gönderimi için [store/README.md](store/README.md).
+
+## Gizlilik
+
+Veri cihazdan çıkmıyor: sunucu yok, hesap yok, analitik yok. İzinler yalnızca
+`storage` + `claude.ai` + `chatgpt.com`.
+Ayrıntı: [Gizlilik politikası](https://mendivaque.github.io/vestige/).
+
+## Lisans
+
+MIT — bkz. [LICENSE](LICENSE).

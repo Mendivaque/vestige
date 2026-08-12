@@ -128,8 +128,10 @@ src/
       yapılamadı; editörü/Explorer'ı kapatıp `mv` yeter)
 - [x] Store paketi: ikon, tanıtım kutusu, listeleme metinleri, gizlilik
       politikası, inceleme formu cevapları → `store/`
+- [x] GitHub deposu: https://github.com/Mendivaque/vestige (public, MIT)
+- [x] Gizlilik politikası yayında: https://mendivaque.github.io/vestige/
+      (kaynak `docs/index.html`, Pages `/docs` klasöründen)
 - [ ] Ekran görüntüleri (1280×800, 5 adet — plan `store/README.md`'de)
-- [ ] Gizlilik politikasını bir URL'e koy (form zorunlu tutuyor)
 - [ ] Web Store geliştirici hesabı (5 USD) ve gönderim
 
 ## Bağlam
