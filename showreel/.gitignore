@@ -1,2 +1,2 @@
 out/*
-!out/*.mp4
+!out/reel[0-9].mp4
