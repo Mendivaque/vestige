@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Showreel Player</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  canvas { display: block; }
+  body.preview { display: grid; place-items: center; height: 100vh; }
+  body.preview canvas { height: 96vh; width: auto; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script src="engine.js"></script>
+<script>
+(async () => {
+  const q = new URLSearchParams(location.search);
+  const reelId = q.get('reel') || '1';
+  window.PARAMS = Object.fromEntries(q.entries());
+  await new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = `reels/reel${reelId}.js`;
+    s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+  });
+  const R = window.REEL;
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const [scratch, sctx] = V.buffer('__scratch');
+
+  // Force every face to load before the first frame.
+  const faces = [
+    'normal 400 10px "Inter"', 'normal 800 10px "Inter"', 'normal 900 10px "Inter"',
+    'normal 500 10px "Space Grotesk"', 'normal 700 10px "Space Grotesk"',
+    'normal 400 10px "Instrument Serif"', 'italic 400 10px "Instrument Serif"',
+    'normal 500 10px "JetBrains Mono"', 'normal 800 10px "JetBrains Mono"',
+    'normal 400 10px "Anton"', 'normal 800 10px "Syne"',
+  ];
+  await Promise.all(faces.map((f) => document.fonts.load(f, 'AaZz09')));
+  await document.fonts.ready;
+  if (R.setup) await R.setup();
+
+  const drawAt = (x, t) => {
+    x.save();
+    x.setTransform(1, 0, 0, 1, 0, 0);
+    x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.filter = 'none';
+    R.draw(x, Math.max(0, t));
+    x.restore();
+  };
+
+  /** Render one output frame at time t, with true sub-frame motion blur if configured. */
+  window.renderFrame = (t) => {
+    const n = (R.blur && R.blur.samples) || 1;
+    const shutter = (R.blur && R.blur.shutter) ?? 0.5;
+    const dtFrame = 1 / R.fps;
+    // Per-reel override: blur amount can be a function of t (e.g. off on hard cuts).
+    const k = typeof shutter === 'function' ? shutter(t) : shutter;
+    if (n <= 1 || k <= 0) {
+      drawAt(ctx, t);
+    } else {
+      for (let i = 0; i < n; i++) {
+        const st = t - k * dtFrame * (i / (n - 1) - 0.5);
+        drawAt(sctx, st);
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1 / (i + 1);
+        ctx.drawImage(scratch, 0, 0);
+        ctx.restore();
+      }
+    }
+    if (R.post) { ctx.save(); R.post(ctx, t); ctx.restore(); }
+  };
+
+  window.grabFrame = async (t, type = 'image/jpeg', quality = 0.95) => {
+    window.renderFrame(t);
+    const blob = await new Promise((r) => canvas.toBlob(r, type, quality));
+    const buf = new Uint8Array(await blob.arrayBuffer());
+    let s = '';
+    for (let i = 0; i < buf.length; i += 0x8000) s += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
+    return btoa(s);
+  };
+
+  /** Contact sheet: many timestamps in a labelled grid, for quick visual review. */
+  window.contactSheet = async (times, cols = 6, scale = 0.25) => {
+    const w = V.W * scale, h = V.H * scale, rows = Math.ceil(times.length / cols);
+    const sheet = document.createElement('canvas');
+    sheet.width = cols * w + (cols + 1) * 8; sheet.height = rows * (h + 30) + 8;
+    const sx = sheet.getContext('2d');
+    sx.fillStyle = '#222'; sx.fillRect(0, 0, sheet.width, sheet.height);
+    times.forEach((t, i) => {
+      window.renderFrame(t);
+      const c = i % cols, r = Math.floor(i / cols);
+      const x = 8 + c * (w + 8), y = 8 + r * (h + 30);
+      sx.drawImage(canvas, x, y, w, h);
+      sx.fillStyle = '#fff'; sx.font = '500 16px "JetBrains Mono"';
+      sx.fillText(`t=${t.toFixed(2)}s`, x, y + h + 20);
+    });
+    const blob = await new Promise((r) => sheet.toBlob(r, 'image/png'));
+    const buf = new Uint8Array(await blob.arrayBuffer());
+    let s = '';
+    for (let i = 0; i < buf.length; i += 0x8000) s += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
+    return btoa(s);
+  };
+
+  window.ready = true;
+
+  // Interactive preview: player.html?reel=1&play  (plays with out/reelN.wav if present)
+  if (q.has('play')) {
+    document.body.classList.add('preview');
+    const audio = new Audio(`out/reel${reelId}.wav`);
+    audio.loop = true;
+    let t0 = null;
+    document.body.addEventListener('click', () => { audio.currentTime = 0; audio.play(); t0 = performance.now(); });
+    const loop = (now) => {
+      if (t0 === null) t0 = now;
+      const t = audio.paused ? ((now - t0) / 1000) % R.duration : audio.currentTime;
+      window.renderFrame(t);
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+</body>
+</html>
