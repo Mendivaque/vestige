@@ -1,0 +1,169 @@
+{
+  "video": "input.mp4",
+  "durationSec": 15,
+  "fps": 30,
+  "videoWidth": 1080,
+  "videoHeight": 1920,
+  "focus": {
+    "x": 0.5,
+    "y": 0.4
+  },
+  "words": [
+    {
+      "text": "Ekibini",
+      "start": 0.3,
+      "end": 0.979
+    },
+    {
+      "text": "kur.",
+      "start": 1.038,
+      "end": 1.463
+    },
+    {
+      "text": "30",
+      "start": 1.9,
+      "end": 2.215,
+      "emphasis": true
+    },
+    {
+      "text": "günde",
+      "start": 2.243,
+      "end": 2.874
+    },
+    {
+      "text": "çık.",
+      "start": 2.929,
+      "end": 3.454
+    },
+    {
+      "text": "Yan",
+      "start": 4.1,
+      "end": 4.373
+    },
+    {
+      "text": "projeler",
+      "start": 4.397,
+      "end": 5.012
+    },
+    {
+      "text": "fikirsizlikten",
+      "start": 5.066,
+      "end": 6.091
+    },
+    {
+      "text": "ölmez.",
+      "start": 6.18,
+      "end": 6.658
+    },
+    {
+      "text": "Üçüncü",
+      "start": 7.2,
+      "end": 7.634
+    },
+    {
+      "text": "haftada",
+      "start": 7.672,
+      "end": 8.168
+    },
+    {
+      "text": "sessizleşen",
+      "start": 8.212,
+      "end": 8.956
+    },
+    {
+      "text": "gruplarda",
+      "start": 9.021,
+      "end": 9.641
+    },
+    {
+      "text": "ölür.",
+      "start": 9.695,
+      "end": 10.068
+    },
+    {
+      "text": "Crewupa",
+      "start": 10.6,
+      "end": 11.032,
+      "emphasis": true
+    },
+    {
+      "text": "sana",
+      "start": 11.07,
+      "end": 11.34
+    },
+    {
+      "text": "bitiş",
+      "start": 11.363,
+      "end": 11.688,
+      "emphasis": true
+    },
+    {
+      "text": "çizgisi,",
+      "start": 11.716,
+      "end": 12.202,
+      "emphasis": true
+    },
+    {
+      "text": "haftalık",
+      "start": 12.244,
+      "end": 12.731
+    },
+    {
+      "text": "ritim",
+      "start": 12.773,
+      "end": 13.097
+    },
+    {
+      "text": "ve",
+      "start": 13.125,
+      "end": 13.287
+    },
+    {
+      "text": "bir",
+      "start": 13.302,
+      "end": 13.518
+    },
+    {
+      "text": "sahne",
+      "start": 13.537,
+      "end": 13.861
+    },
+    {
+      "text": "verir.",
+      "start": 13.889,
+      "end": 14.267
+    }
+  ],
+  "camera": [],
+  "autoCamera": true,
+  "sfx": true,
+  "cutaways": [],
+  "buve": [
+    {
+      "t": 5.2,
+      "dur": 2.6,
+      "side": "right"
+    },
+    {
+      "t": 11,
+      "dur": 2.6,
+      "side": "left"
+    }
+  ],
+  "captionStyle": "pill",
+  "captionY": 0.66,
+  "brand": {
+    "wordmark": "crewupa"
+  },
+  "hook": {
+    "text": "ekibini kur\n30 günde çık",
+    "sub": "SEZON 01 · BAŞVURULAR AÇIK",
+    "duration": 2.4
+  },
+  "speaker": {
+    "name": "crewupa",
+    "role": "Sezon 1 başvuruları açık",
+    "from": 2.6,
+    "duration": 3.2
+  }
+}
