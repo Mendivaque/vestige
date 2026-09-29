@@ -211,7 +211,7 @@
       disc(ctx, ox, oy, rad, WBG[w]);
       if (u < 1) ringS(ctx, ox, oy, rad - 4, lerp(28, 3, u), WK[w], 1 - u * 0.6);
     }
-    const orangeBg = b >= CB + 2 && b < CB + 3.25;
+    const orangeBg = b >= CB + 2 && b < CB + 3.05;
     const dimF = orangeBg ? 'rgba(11,8,22,0.14)' : 'rgba(255,255,255,0.055)';
     const dimS = orangeBg ? 'rgba(11,8,22,0.30)' : 'rgba(255,255,255,0.15)';
     const dimT = orangeBg ? 'rgba(11,8,22,0.35)' : 'rgba(255,255,255,0.22)';
