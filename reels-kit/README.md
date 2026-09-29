@@ -22,6 +22,11 @@ Türkçe karakterler (İ Ş Ğ ı) güvenli; kelime kelime altyazı, otomatik ha
   kaçabilir. Şerit y=1522–1606'da (`Frame.tsx`).
 - **Arka plan müziği:** `--music public/music/ambient.mp3 --music-vol 0.32 --duck 0.35` (konuşmada otomatik kısılır).
   Parça `scripts/make-music.py` ile sıfırdan sentezlenir (telifsiz); Higgsfield müzik üretmez.
+- **Kapak resmi:** `Cover` kompozisyonu (1080x1920). Fotoğraf her zaman videonun kendi karesidir (işlenmez, renkli, tam ekran);
+  küçük/yapay fotoğraf büyütülmez. Akış: sandbox'ta 12 aday kare çıkar → kontak sayfası kullanıcıya gösterilir → seçilen kare
+  `public/cover/face.jpg` olur (gitignore'da, yüz public repoya girmez) → `remotion still src/index.ts Cover out/cover.png
+  --props='{"photo":"cover/face.jpg","kicker":"Konu","lines":["Satır 1","Satır 2"],"handle":"@emirhanca.dev"}'`.
+  Başlık y≈1130'dan başlar; Instagram ızgarası ortadan 3:4 kırptığı için (y 240–1680) yüz ve yazı bu bandın içinde kalmalı.
 - Kişisel hesap için tema `minimal` (siyah-beyaz, vurgusuz). crewupa temalı içerik için `--theme` verilmez.
 
 ## Kullanım
