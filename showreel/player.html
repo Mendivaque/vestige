@@ -37,8 +37,11 @@
     'normal 400 10px "Instrument Serif"', 'italic 400 10px "Instrument Serif"',
     'normal 500 10px "JetBrains Mono"', 'normal 800 10px "JetBrains Mono"',
     'normal 400 10px "Anton"', 'normal 800 10px "Syne"',
+    'normal 400 10px "Unbounded"', 'normal 800 10px "Unbounded"', 'normal 900 10px "Unbounded"',
+    'normal 400 10px "Geist"', 'normal 600 10px "Geist"', 'normal 800 10px "Geist"',
+    'normal 400 10px "Geist Mono"', 'normal 500 10px "Geist Mono"', 'normal 700 10px "Geist Mono"',
   ];
-  await Promise.all(faces.map((f) => document.fonts.load(f, 'AaZz09')));
+  await Promise.all(faces.map((f) => document.fonts.load(f, 'AaZz09İıŞşĞğÇçÖöÜü')));
   await document.fonts.ready;
   if (R.setup) await R.setup();
 
