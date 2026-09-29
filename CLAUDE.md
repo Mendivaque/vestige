@@ -134,6 +134,23 @@ src/
 - [ ] Ekran görüntüleri (1280×800, 5 adet — plan `store/README.md`'de)
 - [ ] Web Store geliştirici hesabı (5 USD) ve gönderim
 
+## reels-kit — Emirhan'ın kişisel Instagram reels şablonu (KALICI KURALLAR)
+
+`reels-kit/` (Remotion) Emirhan'ın kendi videolarını (@emirhanca.dev) reels'e çevirir. Kullanıcı onayladı: **her
+seferinde bu şablon kullanılır**, sormadan başka düzene geçme.
+
+- **Düzen: `--layout clean`** — tam ekran video; açılışta büyük cam efektli konu kartı (satır satır girer), ~3.6 sn sonra
+  küçülüp üstte rozet olur; altta küçük cam efektli `instagram @emirhanca.dev` etiketi; kelime kelime altyazı (outline).
+  Çerçeveli/kutulu düzen (`framed`) "amatör" bulundu, kullanılmaz.
+- **Tema: siyah-beyaz `minimal`.** Crewupa ile ilgili HİÇBİR ŞEY kullanılmaz (Buve, mor palet, wordmark, crewupa
+  videoları, test için bile). Önizleme/test arka planı nötr olmalı.
+- **Lip-sync asla yok.** Yüz ve ses yalnızca orijinal çekimden.
+- **Kamera hareketinde whoosh/efekt sesi yok** (`--no-sfx 1`); kamera yumuşak (`--camera-intensity 0.3`).
+- **Arkada kısık sesli müzik var** (`--music public/music/ambient.mp3`, konuşmada otomatik kısılır). Müzik kendi
+  ürettiğimiz telifsiz parça; Higgsfield müzik üretemiyor.
+- **Önce önizleme göster, onay al, sonra render et.** Higgsfield/sandbox'ta gerçek video render'ı ancak onaydan sonra.
+- Render Higgsfield sandbox'ında yapılır (yerelden cloudfront'a erişim yok); adımlar `reels-kit/README.md`'de.
+
 ## Bağlam
 
 - Geliştirici: Emirhan — React Native / Next.js / TypeScript / Supabase

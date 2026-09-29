@@ -85,13 +85,14 @@ const reel = {
   words, camera: [], autoCamera: opt('no-auto-camera', false) === false, cameraIntensity: +opt('camera-intensity', 1), sfx: opt('no-sfx', false) === false,
   cutaways, buve: pair(opt('buve', '')).map(([t, dur], i) => ({ t, dur: dur || 2.5, side: i % 2 ? 'left' : 'right' })),
   captionStyle: opt('caption-style', 'pill'), captionY: +opt('caption-y', 0.66),
-  brand: { wordmark: opt('wordmark', 'crewupa') },
+  brand: { wordmark: opt('wordmark', '') },
 };
 if (['framed', 'clean'].includes(opt('layout', 'full'))) {
   reel.layout = opt('layout');
   reel.frame = { topic: String(opt('topic', 'Konu başlığı')).replace(/\|/g, '\n'), kicker: opt('kicker', undefined), handle: String(opt('handle', '@emirhanca.dev')), platform: String(opt('platform', 'instagram')) };
   if (opt('caption-y', false) === false) reel.captionY = 0.68;
 }
+if (reel.layout && !opt('theme', false)) reel.theme = THEMES.minimal; // kişisel şablonlar varsayılan olarak siyah-beyaz (marka renkleri yok)
 if (opt('theme', false) && THEMES[opt('theme')]) reel.theme = THEMES[opt('theme')];
 if (opt('hook', false)) reel.hook = { text: String(opt('hook')).replace(/\|/g, '\n'), sub: opt('hook-sub', undefined), duration: +opt('hook-dur', 2.4) };
 if (opt('name', false)) reel.speaker = { name: opt('name'), role: opt('role', undefined), from: +opt('name-from', 2.6), duration: 3.2 };
