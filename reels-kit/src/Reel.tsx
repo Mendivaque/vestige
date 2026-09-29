@@ -5,6 +5,7 @@ import { autoCamera, cameraAt, duckedVolume } from './lib/camera';
 import { useBrandFonts } from './lib/fonts';
 import { Captions } from './components/Captions';
 import { BuvePopups, HookTitle, LowerThird, ProgressBar, Wordmark } from './components/Overlays';
+import { BottomHandle, FRAME, FrameBackground, FrameBorder, TopPanel } from './components/Frame';
 import { C, crewupaTheme, ThemeCtx } from './lib/theme';
 
 export const Reel: React.FC<ReelProps> = (p) => {
@@ -24,9 +25,15 @@ export const Reel: React.FC<ReelProps> = (p) => {
   const sway = { x: Math.sin(t * 1.3) * 0.004, y: Math.cos(t * 1.7) * 0.003, r: Math.sin(t * 0.9) * 0.25 };
   const fill: React.CSSProperties = { width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${p.focus.x * 100}% ${p.focus.y * 100}%` };
 
+  const framed = p.layout === 'framed' && !!p.frame;
+  const videoBox: React.CSSProperties = framed
+    ? { position: 'absolute', left: FRAME.x, top: FRAME.y, width: FRAME.w, height: FRAME.h, borderRadius: FRAME.r, overflow: 'hidden' }
+    : { position: 'absolute', inset: 0 };
   return (
     <ThemeCtx.Provider value={p.theme ?? crewupaTheme}>
     <AbsoluteFill style={{ backgroundColor: C.bg }}>
+      {framed && <FrameBackground />}
+      <div style={videoBox}>
       {/* ana video + kamera */}
       <AbsoluteFill style={{ transformOrigin: `50% ${p.focus.y * 100}%`, transform: `translate(${(cam.x + sway.x) * 100}%, ${(cam.y + sway.y) * 100}%) rotate(${cam.rot + sway.r}deg) scale(${cam.scale})` }}>
         <OffthreadVideo src={staticFile(p.video)} style={fill} />
@@ -43,14 +50,22 @@ export const Reel: React.FC<ReelProps> = (p) => {
       })}
 
       {/* okunabilirlik için alt/üst karartma */}
-      <AbsoluteFill style={{ background: 'linear-gradient(180deg, rgba(11,8,22,0.35) 0%, rgba(11,8,22,0) 22%, rgba(11,8,22,0) 55%, rgba(11,8,22,0.55) 100%)' }} />
+      <AbsoluteFill style={{ background: framed ? 'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)' : 'linear-gradient(180deg, rgba(11,8,22,0.35) 0%, rgba(11,8,22,0) 22%, rgba(11,8,22,0) 55%, rgba(11,8,22,0.55) 100%)' }} />
+      </div>
 
-      {p.hook && <HookTitle {...p.hook} />}
-      {p.speaker && <LowerThird {...p.speaker} />}
-      <Wordmark text={p.brand.wordmark} />
-      <Captions words={p.words} style={p.captionStyle} y={p.captionY} />
+      {framed && p.frame && (
+        <>
+          <FrameBorder />
+          <TopPanel topic={p.frame.topic} kicker={p.frame.kicker} />
+          <BottomHandle handle={p.frame.handle} platform={p.frame.platform} />
+        </>
+      )}
+      {!framed && p.hook && <HookTitle {...p.hook} />}
+      {!framed && p.speaker && <LowerThird {...p.speaker} />}
+      {!framed && <Wordmark text={p.brand.wordmark} />}
+      <Captions words={p.words} style={p.captionStyle} y={p.captionY} compact={framed} />
       <BuvePopups pops={p.buve} />
-      <ProgressBar total={durationInFrames} />
+      {!framed && <ProgressBar total={durationInFrames} />}
 
       {/* ses: müzik (konuşmada kısılır) + kesim whoosh'ları */}
       {p.music && <Audio src={staticFile(p.music.src)} loop volume={(f) => duckedVolume(f / fps, p.words, p.music!.volume, p.music!.duck)} />}

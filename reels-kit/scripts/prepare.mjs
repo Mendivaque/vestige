@@ -72,7 +72,7 @@ if (capFile && capFile !== true) words = parseWords(path.resolve(root, capFile))
 words = words.map((w) => ({ ...w, emphasis: /\d/.test(w.text) || emph.has(lower(w.text.replace(/[.,!?…:;]+$/g, ''))) || undefined }));
 
 /* ---- diğer ayarlar ---- */
-const durationSec = +(opt('duration', info.dur)).valueOf().toFixed(3);
+const durationSec = +(+opt('duration', info.dur)).toFixed(3);
 // --cutaways "angles/a.mp4,8.0,6.5;angles/b.mp4,25.9,4.9"  (dosya, başlangıç sn, süre sn[, full|pip])
 const cutaways = String(opt('cutaways', '')).split(';').filter(Boolean).map((s) => {
   const [src, from, dur, layout] = s.split(',');
@@ -87,6 +87,11 @@ const reel = {
   captionStyle: opt('caption-style', 'pill'), captionY: +opt('caption-y', 0.66),
   brand: { wordmark: opt('wordmark', 'crewupa') },
 };
+if (opt('layout', 'full') === 'framed') {
+  reel.layout = 'framed';
+  reel.frame = { topic: String(opt('topic', 'Konu başlığı')), kicker: opt('kicker', undefined), handle: String(opt('handle', '@emirhanca.dev')), platform: String(opt('platform', 'instagram')) };
+  if (opt('caption-y', false) === false) reel.captionY = 0.68;
+}
 if (opt('theme', false) && THEMES[opt('theme')]) reel.theme = THEMES[opt('theme')];
 if (opt('hook', false)) reel.hook = { text: String(opt('hook')).replace(/\|/g, '\n'), sub: opt('hook-sub', undefined), duration: +opt('hook-dur', 2.4) };
 if (opt('name', false)) reel.speaker = { name: opt('name'), role: opt('role', undefined), from: +opt('name-from', 2.6), duration: 3.2 };

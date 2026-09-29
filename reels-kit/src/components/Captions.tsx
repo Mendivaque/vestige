@@ -8,7 +8,7 @@ import { F, up, useTheme } from '../lib/theme';
  * Kelime kelime beliren, konuşulan kelimeyi vurgulayan altyazı.
  * pill: konuşulan kelimenin arkasında renkli hap · outline: sadece renk değişimi + kalın çerçeve.
  */
-export const Captions: React.FC<{ words: Word[]; style: 'pill' | 'outline'; y: number }> = ({ words, style, y }) => {
+export const Captions: React.FC<{ words: Word[]; style: 'pill' | 'outline'; y: number; compact?: boolean }> = ({ words, style, y, compact }) => {
   const T = useTheme();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -23,10 +23,10 @@ export const Captions: React.FC<{ words: Word[]; style: 'pill' | 'outline'; y: n
   return (
     <div
       style={{
-        position: 'absolute', left: 60, right: 60, top: `${y * 100}%`,
+        position: 'absolute', left: compact ? 110 : 60, right: compact ? 110 : 60, top: `${y * 100}%`,
         transform: `translateY(-50%) scale(${interpolate(pin, [0, 1], [0.86, 1])})`,
         opacity: Math.min(1, pin * 2) * exit,
-        display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '10px 18px',
+        display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: compact ? '6px 30px' : '10px 18px',
       }}
     >
       {page.words.map((w, i) => {
@@ -42,12 +42,12 @@ export const Captions: React.FC<{ words: Word[]; style: 'pill' | 'outline'; y: n
           <span
             key={i}
             style={{
-              display: 'inline-block', fontFamily: F.disp, fontWeight: 900, fontSize: 82, lineHeight: 1.08, letterSpacing: -1.5,
+              display: 'inline-block', fontFamily: F.disp, fontWeight: 900, fontSize: compact ? 66 : 82, lineHeight: 1.08, letterSpacing: compact ? -1 : -1.5,
               color, transform: `scale(${scale}) rotate(${active ? -1.5 : 0}deg)`,
               padding: style === 'pill' ? '4px 20px 8px' : '0 4px',
               borderRadius: 26,
               background: style === 'pill' && active ? pillBg : 'transparent',
-              WebkitTextStroke: style === 'pill' && active ? '0px' : `12px ${T.ink}`,
+              WebkitTextStroke: style === 'pill' && active ? '0px' : `${compact ? 10 : 12}px ${T.ink}`,
               paintOrder: 'stroke fill' as React.CSSProperties['paintOrder'],
               textShadow: style === 'pill' && active ? 'none' : `0 8px 24px rgba(0,0,0,0.55)`,
               boxShadow: style === 'pill' && active ? `0 10px 30px rgba(0,0,0,0.5)` : 'none',
