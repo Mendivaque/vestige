@@ -33,5 +33,8 @@ export type ReelProps = {
   captionStyle: 'pill' | 'outline';
   /** Altyazının dikey konumu (0..1). 0.66 ≈ alttaki arayüzün üstü */
   captionY: number;
+  /** Boşsa crewupa teması. 'minimal' için prepare.mjs --theme minimal */
+  theme?: import('./lib/theme').Theme;
+  /** Boş bırakılırsa sağ üstte marka yazısı çıkmaz */
   brand: { wordmark: string; url?: string };
 };

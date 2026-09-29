@@ -5,7 +5,7 @@ import { autoCamera, cameraAt, duckedVolume } from './lib/camera';
 import { useBrandFonts } from './lib/fonts';
 import { Captions } from './components/Captions';
 import { BuvePopups, HookTitle, LowerThird, ProgressBar, Wordmark } from './components/Overlays';
-import { C } from './lib/theme';
+import { C, crewupaTheme, ThemeCtx } from './lib/theme';
 
 export const Reel: React.FC<ReelProps> = (p) => {
   useBrandFonts();
@@ -25,6 +25,7 @@ export const Reel: React.FC<ReelProps> = (p) => {
   const fill: React.CSSProperties = { width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${p.focus.x * 100}% ${p.focus.y * 100}%` };
 
   return (
+    <ThemeCtx.Provider value={p.theme ?? crewupaTheme}>
     <AbsoluteFill style={{ backgroundColor: C.bg }}>
       {/* ana video + kamera */}
       <AbsoluteFill style={{ transformOrigin: `50% ${p.focus.y * 100}%`, transform: `translate(${(cam.x + sway.x) * 100}%, ${(cam.y + sway.y) * 100}%) rotate(${cam.rot + sway.r}deg) scale(${cam.scale})` }}>
@@ -59,6 +60,7 @@ export const Reel: React.FC<ReelProps> = (p) => {
         </Sequence>
       ))}
     </AbsoluteFill>
+    </ThemeCtx.Provider>
   );
 };
 
@@ -67,7 +69,7 @@ const CutawayView: React.FC<{ src: string; layout: 'full' | 'pip'; startFrom: nu
   const a = interpolate(f, [0, 6, dur - 6, dur], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const style: React.CSSProperties = layout === 'full'
     ? { position: 'absolute', inset: 0, opacity: a, transform: `scale(${1 + f * 0.0006})` }
-    : { position: 'absolute', right: 60, top: 360, width: 420, height: 746, borderRadius: 40, overflow: 'hidden', opacity: a, boxShadow: '0 20px 50px rgba(11,8,22,0.55)', border: `4px solid ${C.v1}` };
+    : { position: 'absolute', right: 60, top: 360, width: 420, height: 746, borderRadius: 40, overflow: 'hidden', opacity: a, boxShadow: '0 20px 50px rgba(11,8,22,0.55)', border: `4px solid rgba(255,255,255,0.85)` };
   return (
     <div style={style}>
       <OffthreadVideo src={staticFile(src)} startFrom={startFrom} muted={mute} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

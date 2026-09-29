@@ -16,6 +16,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf('--' + k); return i >= 0 ? (args[i + 1] ?? true) : d; };
 const lower = (s) => s.toLocaleLowerCase('tr-TR');
+const THEMES = {
+  minimal: { accent: '#ffffff', accent2: '#ffffff', ink: '#000000', text: '#ffffff', muted: 'rgba(255,255,255,0.72)', pillText: '#000000', card: 'rgba(0,0,0,0.62)', bar: '#ffffff' },
+};
 
 /* ---- video: public/ içine al, süreyi/boyutu oku ---- */
 let video = path.resolve(root, opt('video', 'public/input.mp4'));
@@ -79,6 +82,7 @@ const reel = {
   captionStyle: opt('caption-style', 'pill'), captionY: +opt('caption-y', 0.66),
   brand: { wordmark: opt('wordmark', 'crewupa') },
 };
+if (opt('theme', false) && THEMES[opt('theme')]) reel.theme = THEMES[opt('theme')];
 if (opt('hook', false)) reel.hook = { text: String(opt('hook')).replace(/\|/g, '\n'), sub: opt('hook-sub', undefined), duration: +opt('hook-dur', 2.4) };
 if (opt('name', false)) reel.speaker = { name: opt('name'), role: opt('role', undefined), from: +opt('name-from', 2.6), duration: 3.2 };
 if (opt('music', false)) reel.music = { src: path.relative(pub, path.resolve(root, opt('music'))), volume: +opt('music-vol', 0.32), duck: +opt('duck', 0.35) };
