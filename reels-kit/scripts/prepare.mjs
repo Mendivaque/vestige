@@ -77,7 +77,7 @@ const pair = (s) => String(s).split(';').filter(Boolean).map((x) => x.split(',')
 const reel = {
   video: videoName, durationSec, fps: +opt('fps', 30), videoWidth: info.w, videoHeight: info.h,
   focus: { x: +opt('focus-x', 0.5), y: +opt('focus-y', 0.4) },
-  words, camera: [], autoCamera: opt('no-auto-camera', false) === false, sfx: opt('no-sfx', false) === false,
+  words, camera: [], autoCamera: opt('no-auto-camera', false) === false, cameraIntensity: +opt('camera-intensity', 1), sfx: opt('no-sfx', false) === false,
   cutaways: [], buve: pair(opt('buve', '')).map(([t, dur], i) => ({ t, dur: dur || 2.5, side: i % 2 ? 'left' : 'right' })),
   captionStyle: opt('caption-style', 'pill'), captionY: +opt('caption-y', 0.66),
   brand: { wordmark: opt('wordmark', 'crewupa') },

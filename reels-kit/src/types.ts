@@ -23,6 +23,8 @@ export type ReelProps = {
   /** Elle kamera anahtarları. Boşsa ve autoCamera açıksa otomatik üretilir. */
   camera: CamKey[];
   autoCamera: boolean;
+  /** Kamera hareketinin şiddeti. 1 = tam punch-in (%34'e kadar), 0.3 = hafif (≈%10). */
+  cameraIntensity?: number;
   /** Kesim anlarında whoosh sesi */
   sfx: boolean;
   hook?: { text: string; sub?: string; duration: number };

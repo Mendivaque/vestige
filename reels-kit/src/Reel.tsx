@@ -16,9 +16,9 @@ export const Reel: React.FC<ReelProps> = (p) => {
   // Kamera: elle verilmediyse konuşmadan otomatik üretilir
   const rig = React.useMemo(() => {
     if (p.camera.length) return { keys: p.camera, cuts: p.camera.map((k) => k.t).filter((x) => x > 0.5) };
-    if (p.autoCamera) return autoCamera(p.words, p.durationSec);
+    if (p.autoCamera) return autoCamera(p.words, p.durationSec, 2.6, p.cameraIntensity ?? 1);
     return { keys: [], cuts: [] as number[] };
-  }, [p.camera, p.autoCamera, p.words, p.durationSec]);
+  }, [p.camera, p.autoCamera, p.words, p.durationSec, p.cameraIntensity]);
   const cam = cameraAt(t, rig.keys);
   // el kamerası hissi: çok hafif, yavaş salınım
   const sway = { x: Math.sin(t * 1.3) * 0.004, y: Math.cos(t * 1.7) * 0.003, r: Math.sin(t * 0.9) * 0.25 };

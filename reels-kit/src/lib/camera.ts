@@ -26,7 +26,7 @@ export function cameraAt(t: number, keys: CamKey[]) {
  * Konuşmadan otomatik "montaj" hissi: cümle sonlarında (en az minGap sn arayla) hızlı punch-in / punch-out,
  * iki kesim arasında yavaş bir itme (push-in). Dönen `cuts` whoosh sesleri için kullanılır.
  */
-export function autoCamera(words: Word[], durationSec: number, minGap = 2.6) {
+export function autoCamera(words: Word[], durationSec: number, minGap = 2.6, intensity = 1) {
   const cutTimes: number[] = [0];
   words.forEach((w, i) => {
     const endOfSentence = /[.?!…]$/.test(w.text) || (words[i + 1] && words[i + 1].start - w.end > 0.4);
@@ -38,7 +38,7 @@ export function autoCamera(words: Word[], durationSec: number, minGap = 2.6) {
   const keys: CamKey[] = [];
   cutTimes.forEach((c, i) => {
     const next = cutTimes[i + 1] ?? durationSec;
-    const S = scales[i % scales.length], X = shifts[i % shifts.length], drift = 0.045;
+    const S = 1 + (scales[i % scales.length] - 1) * intensity, X = shifts[i % shifts.length] * intensity, drift = 0.045 * intensity;
     keys.push({ t: i === 0 ? 0 : c + 0.2, scale: S, x: X, y: 0, ease: 'out' });
     keys.push({ t: next - 0.001, scale: S + drift, x: X * 1.2, y: 0, ease: 'linear' });
   });
