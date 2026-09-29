@@ -4,3 +4,6 @@ out/*
 public/input.*
 public/angles/*
 .remotion
+public/cover/*
+!public/cover/.gitkeep
+out/*.png

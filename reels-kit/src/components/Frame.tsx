@@ -61,7 +61,7 @@ export const BottomHandle: React.FC<{ handle: string; platform?: string }> = ({ 
 };
 
 /** Geist'te büyük "I" ile küçük "l" aynı görünür: tek başına duran "AI" için serifli (mono) I kullan. */
-const fixAI = (line: string): React.ReactNode =>
+export const fixAI = (line: string): React.ReactNode =>
   line.split(/\b(AI)\b/).map((part, i) => (part === 'AI' ? <span key={i}>A<span style={{ fontFamily: F.mono, fontWeight: 600, letterSpacing: -1 }}>I</span></span> : part));
 
 /* ---------- 'clean' düzen: tam ekran video + cam efektli başlık + küçük hesap etiketi ---------- */
@@ -111,10 +111,10 @@ export const TitleCard: React.FC<{ topic: string; kicker?: string }> = ({ topic,
 };
 
 /** Altta küçük, cam efektli hesap etiketi (Instagram ikonu + handle). */
-export const HandleTag: React.FC<{ handle: string }> = ({ handle }) => {
+export const HandleTag: React.FC<{ handle: string; still?: boolean }> = ({ handle, still }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const p = spring({ frame: f - 22, fps, config: { damping: 18, stiffness: 140, mass: 0.9 } });
+  const p = still ? 1 : spring({ frame: f - 22, fps, config: { damping: 18, stiffness: 140, mass: 0.9 } });
   return (
     <div style={{ position: 'absolute', left: '50%', top: 1572, transform: `translateX(-50%) translateY(${(1 - p) * 36}px)`, opacity: interpolate(p, [0, 0.5], [0, 1], { extrapolateRight: 'clamp' }) }}>
       <div style={{ ...glass, borderRadius: 999, padding: '16px 38px 16px 30px', display: 'flex', alignItems: 'center', gap: 16 }}>
