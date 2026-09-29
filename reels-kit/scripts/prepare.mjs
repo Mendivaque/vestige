@@ -73,12 +73,17 @@ words = words.map((w) => ({ ...w, emphasis: /\d/.test(w.text) || emph.has(lower(
 
 /* ---- diğer ayarlar ---- */
 const durationSec = +(opt('duration', info.dur)).valueOf().toFixed(3);
+// --cutaways "angles/a.mp4,8.0,6.5;angles/b.mp4,25.9,4.9"  (dosya, başlangıç sn, süre sn[, full|pip])
+const cutaways = String(opt('cutaways', '')).split(';').filter(Boolean).map((s) => {
+  const [src, from, dur, layout] = s.split(',');
+  return { src, from: +from, to: +from + +dur, layout: layout || 'full', startFrom: 0, mute: true };
+});
 const pair = (s) => String(s).split(';').filter(Boolean).map((x) => x.split(',').map(Number));
 const reel = {
   video: videoName, durationSec, fps: +opt('fps', 30), videoWidth: info.w, videoHeight: info.h,
   focus: { x: +opt('focus-x', 0.5), y: +opt('focus-y', 0.4) },
   words, camera: [], autoCamera: opt('no-auto-camera', false) === false, cameraIntensity: +opt('camera-intensity', 1), sfx: opt('no-sfx', false) === false,
-  cutaways: [], buve: pair(opt('buve', '')).map(([t, dur], i) => ({ t, dur: dur || 2.5, side: i % 2 ? 'left' : 'right' })),
+  cutaways, buve: pair(opt('buve', '')).map(([t, dur], i) => ({ t, dur: dur || 2.5, side: i % 2 ? 'left' : 'right' })),
   captionStyle: opt('caption-style', 'pill'), captionY: +opt('caption-y', 0.66),
   brand: { wordmark: opt('wordmark', 'crewupa') },
 };

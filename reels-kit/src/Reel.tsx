@@ -66,9 +66,9 @@ export const Reel: React.FC<ReelProps> = (p) => {
 
 const CutawayView: React.FC<{ src: string; layout: 'full' | 'pip'; startFrom: number; mute: boolean; dur: number }> = ({ src, layout, startFrom, mute, dur }) => {
   const f = useCurrentFrame();
-  const a = interpolate(f, [0, 6, dur - 6, dur], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const a = interpolate(f, [0, 2, dur - 2, dur], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const style: React.CSSProperties = layout === 'full'
-    ? { position: 'absolute', inset: 0, opacity: a, transform: `scale(${1 + f * 0.0006})` }
+    ? { position: 'absolute', inset: 0, opacity: a, transform: `scale(${1 + f * 0.0002})` }
     : { position: 'absolute', right: 60, top: 360, width: 420, height: 746, borderRadius: 40, overflow: 'hidden', opacity: a, boxShadow: '0 20px 50px rgba(11,8,22,0.55)', border: `4px solid rgba(255,255,255,0.85)` };
   return (
     <div style={style}>
