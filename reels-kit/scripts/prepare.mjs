@@ -87,9 +87,9 @@ const reel = {
   captionStyle: opt('caption-style', 'pill'), captionY: +opt('caption-y', 0.66),
   brand: { wordmark: opt('wordmark', 'crewupa') },
 };
-if (opt('layout', 'full') === 'framed') {
-  reel.layout = 'framed';
-  reel.frame = { topic: String(opt('topic', 'Konu başlığı')), kicker: opt('kicker', undefined), handle: String(opt('handle', '@emirhanca.dev')), platform: String(opt('platform', 'instagram')) };
+if (['framed', 'clean'].includes(opt('layout', 'full'))) {
+  reel.layout = opt('layout');
+  reel.frame = { topic: String(opt('topic', 'Konu başlığı')).replace(/\|/g, '\n'), kicker: opt('kicker', undefined), handle: String(opt('handle', '@emirhanca.dev')), platform: String(opt('platform', 'instagram')) };
   if (opt('caption-y', false) === false) reel.captionY = 0.68;
 }
 if (opt('theme', false) && THEMES[opt('theme')]) reel.theme = THEMES[opt('theme')];

@@ -35,8 +35,8 @@ export type ReelProps = {
   captionStyle: 'pill' | 'outline';
   /** Altyazının dikey konumu (0..1). 0.66 ≈ alttaki arayüzün üstü */
   captionY: number;
-  /** 'framed': çerçeveli düzen (üstte konu paneli, ortada çerçeveli video, altta hesap şeridi). 'full': tam ekran video. */
-  layout?: 'full' | 'framed';
+  /** 'clean': tam ekran video + cam efektli başlık kartı + küçük hesap etiketi. 'framed': çerçeveli düzen (üstte konu paneli, ortada çerçeveli video, altta hesap şeridi). 'full': tam ekran video. */
+  layout?: 'full' | 'framed' | 'clean';
   frame?: { topic: string; kicker?: string; handle: string; platform?: string };
   /** Boşsa crewupa teması. 'minimal' için prepare.mjs --theme minimal */
   theme?: import('./lib/theme').Theme;

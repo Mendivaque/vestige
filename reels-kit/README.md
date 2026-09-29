@@ -9,12 +9,13 @@ Türkçe karakterler (İ Ş Ğ ı) güvenli; kelime kelime altyazı, otomatik ha
   ile) yapılmaz. Kişinin yüzü ve sesi yalnızca orijinal çekimden gelir.
 - **Kamera hareketlerinde whoosh/efekt sesi yok** (`--no-sfx 1`).
 - **Kamera fazla yaklaşmaz:** `--camera-intensity 0.3` (zoom en çok ≈ %10).
-- **Kişisel içerik için hazır şablon: çerçeveli düzen** (`--layout framed`). Üstte konu paneli, ortada yuvarlatılmış video
-  çerçevesi, en altta `instagram | @emirhanca.dev`. Altyazı çerçevenin içinde kalır (küçük punto).
+- **Kişisel içerik için varsayılan şablon: `--layout clean`** (tam ekran video). Açılışta büyük cam efektli konu kartı
+  satır satır girer, ~3.6 sn sonra küçülüp üstte rozet olarak kalır; altta küçük cam efektli `@emirhanca.dev` etiketi.
+  Konu satırları `|` ile ayrılır. (`--layout framed`: eski çerçeveli düzen, kullanıcı "amatör" bulduğu için önerilmez.)
 
   ```bash
   node scripts/prepare.mjs --video public/input.mp4 --words kelimeler.json \
-    --layout framed --topic "AI kodu yazar. Peki ya sonrası?" --kicker "KONU" --handle "@emirhanca.dev" \
+    --layout clean --topic "AI kodu yazar.|Peki ya sonrası?" --kicker "KONU" --handle "@emirhanca.dev" \
     --theme minimal --caption-style outline --no-sfx 1 --camera-intensity 0.3
   ```
   Not: Instagram Reels arayüzü alt ~350 px'i (kullanıcı adı/açıklama) kaplayabilir; handle şeridi bu yüzden gözden

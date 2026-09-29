@@ -42,7 +42,7 @@ export const Captions: React.FC<{ words: Word[]; style: 'pill' | 'outline'; y: n
           <span
             key={i}
             style={{
-              display: 'inline-block', fontFamily: F.disp, fontWeight: 900, fontSize: compact ? 66 : 82, lineHeight: 1.08, letterSpacing: compact ? -1 : -1.5,
+              display: 'inline-block', fontFamily: F.disp, fontWeight: 900, fontSize: compact ? 72 : 82, lineHeight: 1.08, letterSpacing: compact ? -1 : -1.5,
               color, transform: `scale(${scale}) rotate(${active ? -1.5 : 0}deg)`,
               padding: style === 'pill' ? '4px 20px 8px' : '0 4px',
               borderRadius: 26,

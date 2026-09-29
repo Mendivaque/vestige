@@ -59,3 +59,68 @@ export const BottomHandle: React.FC<{ handle: string; platform?: string }> = ({ 
     </div>
   );
 };
+
+/** Geist'te büyük "I" ile küçük "l" aynı görünür: tek başına duran "AI" için serifli (mono) I kullan. */
+const fixAI = (line: string): React.ReactNode =>
+  line.split(/\b(AI)\b/).map((part, i) => (part === 'AI' ? <span key={i}>A<span style={{ fontFamily: F.mono, fontWeight: 600, letterSpacing: -1 }}>I</span></span> : part));
+
+/* ---------- 'clean' düzen: tam ekran video + cam efektli başlık + küçük hesap etiketi ---------- */
+
+const glass: React.CSSProperties = {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.17), rgba(255,255,255,0.08))',
+  backdropFilter: 'blur(26px) saturate(1.4)',
+  WebkitBackdropFilter: 'blur(26px) saturate(1.4)',
+  border: '1.5px solid rgba(255,255,255,0.30)',
+  boxShadow: '0 24px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25)',
+};
+
+/**
+ * Konu başlığı: açılışta büyük kart olarak girer (satır satır kayarak), ~3.6 sn sonra
+ * aynı kart küçülüp üste yerleşir ve video boyunca rozet olarak kalır.
+ */
+export const TitleCard: React.FC<{ topic: string; kicker?: string }> = ({ topic, kicker }) => {
+  const f = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const t = f / fps;
+  const lines = topic.split('\n').filter(Boolean);
+  const enter = spring({ frame: f - 3, fps, config: { damping: 16, stiffness: 130, mass: 0.9 } });
+  const morph = interpolate(t, [3.4, 4.2], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: (x) => 1 - Math.pow(1 - x, 3) });
+  const scale = 1 - morph * 0.46;
+  const top = 250 - morph * 40;
+  const longest = Math.max(...lines.map((l) => l.length));
+  const size = longest <= 16 ? 88 : longest <= 22 ? 76 : 64;
+  const dot = 0.55 + 0.45 * Math.sin(t * 5);
+  return (
+    <div style={{ position: 'absolute', left: '50%', top, transform: `translateX(-50%) scale(${scale})`, transformOrigin: '50% 0', opacity: interpolate(enter, [0, 0.4], [0, 1], { extrapolateRight: 'clamp' }) }}>
+      <div style={{ ...glass, borderRadius: 44, padding: '30px 52px 36px', minWidth: 460, transform: `translateY(${(1 - enter) * -60}px)` }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 14 }}>
+          <span style={{ width: 16, height: 16, borderRadius: 8, background: '#fff', opacity: dot, boxShadow: '0 0 18px rgba(255,255,255,0.9)' }} />
+          <span style={{ fontFamily: F.mono, fontWeight: 500, fontSize: 32, letterSpacing: 6, color: 'rgba(255,255,255,0.8)' }}>{(kicker ?? '').toLocaleUpperCase('tr-TR')}</span>
+        </div>
+        {lines.map((l, i) => {
+          const p = spring({ frame: f - 8 - i * 6, fps, config: { damping: 15, stiffness: 170, mass: 0.7 } });
+          return (
+            <div key={i} style={{ overflow: 'hidden', paddingBottom: 6 }}>
+              <div style={{ fontFamily: F.sans, fontWeight: 800, fontSize: size, lineHeight: 1.06, letterSpacing: -2.4, color: i === 0 ? '#fff' : 'rgba(255,255,255,0.72)', whiteSpace: 'nowrap', transform: `translateY(${(1 - p) * 115}%)` }}>{fixAI(l)}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+/** Altta küçük, cam efektli hesap etiketi (Instagram ikonu + handle). */
+export const HandleTag: React.FC<{ handle: string }> = ({ handle }) => {
+  const f = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const p = spring({ frame: f - 22, fps, config: { damping: 18, stiffness: 140, mass: 0.9 } });
+  return (
+    <div style={{ position: 'absolute', left: '50%', top: 1572, transform: `translateX(-50%) translateY(${(1 - p) * 36}px)`, opacity: interpolate(p, [0, 0.5], [0, 1], { extrapolateRight: 'clamp' }) }}>
+      <div style={{ ...glass, borderRadius: 999, padding: '16px 38px 16px 30px', display: 'flex', alignItems: 'center', gap: 16 }}>
+        <InstagramGlyph size={40} />
+        <span style={{ fontFamily: F.sans, fontWeight: 700, fontSize: 38, letterSpacing: -0.6, color: '#fff' }}>{handle}</span>
+      </div>
+    </div>
+  );
+};

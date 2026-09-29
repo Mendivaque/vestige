@@ -5,7 +5,7 @@ import { autoCamera, cameraAt, duckedVolume } from './lib/camera';
 import { useBrandFonts } from './lib/fonts';
 import { Captions } from './components/Captions';
 import { BuvePopups, HookTitle, LowerThird, ProgressBar, Wordmark } from './components/Overlays';
-import { BottomHandle, FRAME, FrameBackground, FrameBorder, TopPanel } from './components/Frame';
+import { BottomHandle, FRAME, FrameBackground, FrameBorder, HandleTag, TitleCard, TopPanel } from './components/Frame';
 import { C, crewupaTheme, ThemeCtx } from './lib/theme';
 
 export const Reel: React.FC<ReelProps> = (p) => {
@@ -26,6 +26,7 @@ export const Reel: React.FC<ReelProps> = (p) => {
   const fill: React.CSSProperties = { width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${p.focus.x * 100}% ${p.focus.y * 100}%` };
 
   const framed = p.layout === 'framed' && !!p.frame;
+  const clean = p.layout === 'clean' && !!p.frame;
   const videoBox: React.CSSProperties = framed
     ? { position: 'absolute', left: FRAME.x, top: FRAME.y, width: FRAME.w, height: FRAME.h, borderRadius: FRAME.r, overflow: 'hidden' }
     : { position: 'absolute', inset: 0 };
@@ -50,7 +51,7 @@ export const Reel: React.FC<ReelProps> = (p) => {
       })}
 
       {/* okunabilirlik için alt/üst karartma */}
-      <AbsoluteFill style={{ background: framed ? 'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)' : 'linear-gradient(180deg, rgba(11,8,22,0.35) 0%, rgba(11,8,22,0) 22%, rgba(11,8,22,0) 55%, rgba(11,8,22,0.55) 100%)' }} />
+      <AbsoluteFill style={{ background: clean ? 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.55) 100%)' : framed ? 'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)' : 'linear-gradient(180deg, rgba(11,8,22,0.35) 0%, rgba(11,8,22,0) 22%, rgba(11,8,22,0) 55%, rgba(11,8,22,0.55) 100%)' }} />
       </div>
 
       {framed && p.frame && (
@@ -60,12 +61,18 @@ export const Reel: React.FC<ReelProps> = (p) => {
           <BottomHandle handle={p.frame.handle} platform={p.frame.platform} />
         </>
       )}
-      {!framed && p.hook && <HookTitle {...p.hook} />}
-      {!framed && p.speaker && <LowerThird {...p.speaker} />}
-      {!framed && <Wordmark text={p.brand.wordmark} />}
-      <Captions words={p.words} style={p.captionStyle} y={p.captionY} compact={framed} />
+      {clean && p.frame && (
+        <>
+          <TitleCard topic={p.frame.topic} kicker={p.frame.kicker} />
+          <HandleTag handle={p.frame.handle} />
+        </>
+      )}
+      {!framed && !clean && p.hook && <HookTitle {...p.hook} />}
+      {!framed && !clean && p.speaker && <LowerThird {...p.speaker} />}
+      {!framed && !clean && <Wordmark text={p.brand.wordmark} />}
+      <Captions words={p.words} style={p.captionStyle} y={p.captionY} compact={framed || clean} />
       <BuvePopups pops={p.buve} />
-      {!framed && <ProgressBar total={durationInFrames} />}
+      {!framed && !clean && <ProgressBar total={durationInFrames} />}
 
       {/* ses: müzik (konuşmada kısılır) + kesim whoosh'ları */}
       {p.music && <Audio src={staticFile(p.music.src)} loop volume={(f) => duckedVolume(f / fps, p.words, p.music!.volume, p.music!.duck)} />}
