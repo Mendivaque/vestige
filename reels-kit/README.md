@@ -20,6 +20,8 @@ Türkçe karakterler (İ Ş Ğ ı) güvenli; kelime kelime altyazı, otomatik ha
   ```
   Not: Instagram Reels arayüzü alt ~350 px'i (kullanıcı adı/açıklama) kaplayabilir; handle şeridi bu yüzden gözden
   kaçabilir. Şerit y=1522–1606'da (`Frame.tsx`).
+- **Arka plan müziği:** `--music public/music/ambient.mp3 --music-vol 0.32 --duck 0.35` (konuşmada otomatik kısılır).
+  Parça `scripts/make-music.py` ile sıfırdan sentezlenir (telifsiz); Higgsfield müzik üretmez.
 - Kişisel hesap için tema `minimal` (siyah-beyaz, vurgusuz). crewupa temalı içerik için `--theme` verilmez.
 
 ## Kullanım
